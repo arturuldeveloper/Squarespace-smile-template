@@ -1,0 +1,51 @@
+
+<header id="header" class="site-header" role="banner" data-nc-base="header" data-nc-group="header" data-controller="AncillaryLayout">
+  <div data-nc-container="left">
+    <div class="logo-wrapper" data-content-field="site-title" data-nc-element="branding">
+    {.section website}
+      {.section logoImageUrl}
+        <div class="logo-image">
+          <a href="/">
+            {#  we don't know the max width here, so setting sizes to 1500, which was the requested size before image component migration  }
+            {.ctx @image src=logoImageUrl alt=siteTitle}
+            {@image|apply/apply-image-component.block/
+              /sizes=1500px/
+              /elementTiming=wf-header-branding-logo/
+            }
+          </a>
+        </div>
+      {.or}
+        <div class="site-title"><a href="/">{siteTitle}</a></div>
+      {.end}
+    {.end}
+    </div>
+
+    <div class="site-tagline-wrapper" data-nc-element="tagline">
+      {.section website.siteTagLine}<div class="site-tagline">{@}</div>{.end}
+    </div>
+
+    <div id="mainNavWrapper" class="nav-wrapper primary-nav-wrapper" data-nc-element="primary-nav">
+      <squarespace:navigation navigationId="mainNav" template="navigation" />
+    </div>
+
+    <div id="secondaryNavWrapper" class="nav-wrapper secondary-nav-wrapper" data-nc-element="secondary-nav">
+      <squarespace:navigation navigationId="secondaryNav" template="navigation" />
+    </div>
+
+    <div class="cart-wrapper" data-nc-element="cart">
+      {@|apply cart.block}
+    </div>
+    {.if userAccountsContext.showSignInLink}
+    <div class="Header-account" data-nc-element="account">
+      <button data-controller="UserAccountsController"><span class="unauth">{localizedStrings.signIn}</span><span class="auth">{localizedStrings.myAccount}</span></button>
+      <div class="Icon Icon--user-accounts" data-controller="UserAccountsController">
+        <a href="#">
+          {@|apply user-account-icon.block}
+        </a>
+      </div>
+    </div>
+    {.end}
+  </div>
+  <div data-nc-container="center"></div>
+  <div data-nc-container="right"></div>
+</header>

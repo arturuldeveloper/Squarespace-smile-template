@@ -1,0 +1,400 @@
+{##BEGIN}
+  @sqs/image/jsont
+
+  #### Formatting Guidelines ####
+
+  JSON-T doesn't strip whitespace resulting in oddly formatted rendered markup.
+  In order to reduce risk of rendering invalid spaces — especially around JSON-T
+  predicates for HTML attributes — we use JSON-T comments to strip the whitespace.
+
+  1. At the end of every line, open a comment block with "{#"
+  2. At the beginning of the next line, add a closing bracing for the comment "}"
+  3. For lines with real markup, add a space before opening the comment block.
+    These spaces should be the only whitespace exists in the rendered output.
+
+{END##}{#
+
+#### Constants & Primitives ####
+
+## Helper to define literal variables (useful for equality with JSON-T)
+}{.macro define}{@args.val}{.end}{#
+
+## Primitives
+}{.var @NULL @|apply define val=null}{#
+}{.var @TRUE @|apply define val=true}{#
+}{.var @FALSE @|apply define val=false}{#
+}{.var @EMPTY_ARG @|apply define val=}{#
+}{.var @EMPTY_STR_ARG @|apply define val=""}{#
+
+## Constants
+}{.var @COMPONENT @|apply define val=@sqs/image}{#
+}{.var @LOADER_SQS @|apply define val=sqs}{#
+}{.var @LOADER_RAW @|apply define val=raw}{#
+}{.var @LOADER_VIMEO @|apply define val=vimeo}{#
+}{.var @LOADER_YOUTUBE @|apply define val=youtube}{#
+}{.var @PRIORITY_HIGH @|apply define val=high}{#
+}{.var @PRIORITY_LOW @|apply define val=low}{#
+}{.var @LOADING_LAZY @|apply define val=lazy}{#
+}{.var @LOADING_EAGER @|apply define val=eager}{#
+}{.var @FORMAT_JPG @|apply define val=jpg}{#
+}{.var @FORMAT_WEBP @|apply define val=webp}{#
+
+#### Macros & Functions ####
+
+## as-optional: resolves value if not strictly null (PRIVATE CONTEXT REQUIRED)
+##   The JS-compiler has different behavior than Java if the supplied context is null.
+##   In this case, the compiler restores the entire context instead of treating @ as true null.
+##   This means usage of the "private" keyword is required which will retain the null value of @.
+##   With private, we don't get access to our constants/variables, hence why they are partially redefined.
+}{.macro as-optional}{#
+  }{.var @NULL @|apply define val=null}{#
+  }{.var @EMPTY_ARG @|apply define val=}{#
+  }{.var @EMPTY_STR_ARG @|apply define val=""}{#
+
+  ## resolve virtual null (note: "null" strings are considered virtual null)
+  }{.equal? @ @NULL}{@NULL}{#
+  ## resolve falsey conditions as values
+  }{.or equal? @ 0}{@}{#
+  }{.or equal? @ @EMPTY_ARG}{@EMPTY_ARG}{#
+  }{.or equal? @ @EMPTY_STR_ARG}{@EMPTY_ARG}{#
+  }{.or equal? @ false}{@}{#
+  ## resolve all other truthy conditions as values
+  }{.or}{.if @}{@}{#
+  ## resolve remainder as virtual null
+  }{.or}{@NULL}{.end}{.end}{#
+}{.end}{#
+
+## use-prop: resolve a prop by argument ref, argument literal, context ref via arg, or supplied default
+    - @args.name: the name of the prop to resolve
+}{.macro use-prop}{#
+  }{.var @prop @this.args|get @args.name|apply as-optional private}{#
+  }{.if @prop}{.var @refProp @this.context|lookup @prop|apply as-optional private}{.end}{#
+  }{.var @literalProp @prop|apply as-optional private}{#
+  }{.var @contextProp @this.context|lookup @args.name|apply as-optional private}{#
+  }{.var @defaultProp @this.defaults|get @args.name|apply as-optional private}{#
+
+  ## Case 1: Prop provided as an argument with a reference value to the supplied context
+  }{.notEqual? @refProp @NULL}{#
+    }{@refProp}{#
+  ## Case 2: Prop provided as an argument with a literal value (e.g. :alt=Informative description:)
+  }{.or notEqual? @literalProp @NULL}{#
+    }{@literalProp}{#
+  ## Case 3: Prop inferred from the supplied context iff no argument provided and matching context is resolved
+  }{.or notEqual? @contextProp @NULL}{#
+    }{@contextProp}{#
+  ## Case 4: Prop contains a default value determined by the image component
+  }{.or notEqual? @defaultProp @NULL}{#
+    }{@defaultProp}{#
+  ## Case 5: Prop could not be resolved
+  }{.or}{#
+    }{@NULL}{#
+  }{.end}{#
+}{.end}{#
+
+}{.macro use-sqs-loader}{#
+  }{.notEqual? @src @NULL}{#
+    }{@src}?format=100w 100w, {#
+    }{@src}?format=300w 300w, {#
+    }{@src}?format=500w 500w, {#
+    }{@src}?format=750w 750w, {#
+    }{@src}?format=1000w 1000w, {#
+    }{@src}?format=1500w 1500w, {#
+    }{@src}?format=2500w 2500w{#
+  }{.or}{@NULL}{.end}{#
+}{.end}{#
+
+}{.macro use-vimeo-loader}{#
+  }{.eval @srcNotNull = @src != @NULL}{#
+  }{.eval @formatNotNull = @format != @NULL}{#
+  }{.if @srcNotNull && @formatNotNull}{#
+    }{@src}_100.{@format} 100w, {#
+    }{@src}_300.{@format} 300w, {#
+    }{@src}_500.{@format} 500w, {#
+    }{@src}_750.{@format} 750w, {#
+    }{@src}_1000.{@format} 1000w, {#
+    }{@src}_1500.{@format} 1500w, {#
+    }{@src}_2500.{@format} 2500w{#
+  }{.or}{@NULL}{.end}{#
+}{.end}{#
+
+}{.macro youtube-format-suffix}{#
+  }{.equal? @format @FORMAT_WEBP}_webp{.end}{#
+}{.end}{#
+
+}{.macro use-youtube-loader}{#
+  }{.eval @videoIdSet = @videoId != @NULL}{#
+  }{.eval @formatSet = @format != @NULL}{#
+  }{.if @videoIdSet && @formatSet}{#
+    }https://i.ytimg.com/vi{@|apply youtube-format-suffix}/{@videoId}/default.{@format} 120w, {#
+    }https://i.ytimg.com/vi{@|apply youtube-format-suffix}/{@videoId}/mqdefault.{@format} 320w, {#
+    }https://i.ytimg.com/vi{@|apply youtube-format-suffix}/{@videoId}/hqdefault.{@format} 480w, {#
+    }https://i.ytimg.com/vi{@|apply youtube-format-suffix}/{@videoId}/sddefault.{@format} 640w {#
+  }{.or}{@NULL}{.end}{#
+}{.end}{#
+
+}{.macro use-youtube-src}{#
+  }{.eval @videoIdSet = @videoId != @NULL}{#
+  }{.eval @formatSet = @format != @NULL}{#
+  }{.if @videoIdSet && @formatSet}{#
+    } src="https://i.ytimg.com/vi{@|apply youtube-format-suffix}/{@videoId}/default.{@format}"{#
+  }{.end}{#
+}{.end}{#
+
+}{.macro use-loader}{#
+  }{.equal? @ @LOADER_RAW}{#
+    }{@srcset}{#
+  }{.or equal? @ @LOADER_VIMEO}{#
+    }{@|apply use-vimeo-loader}{#
+  }{.or equal? @ @LOADER_YOUTUBE}{#
+    }{@|apply use-youtube-loader}{#
+  }{.or equal? @ @LOADER_SQS}{#
+    }{@|apply use-sqs-loader}{#
+  }{.or}{#
+    }{@NULL}{#
+  }{.end}{#
+}{.end}{#
+
+## assert-prop: renders a HTML comment for a parent assertion function
+   - @args.level: the log level for the current assertion (e.g. info, warn)
+   - @args.message: the message for the current assertion
+   - @args.for/@assert.for: the prop currently being asserted (use @args.for if supplying a literal, for example the alt-text assertion)
+   - @assert.value: the value of the prop currently being asserted
+}{.macro assert-prop}{#
+  }{.if @args.for}{.var @for @args.for}{.or}{.var @for @assert.for}{.end}{#
+  }<!-- {@args.level|capitalize}({@COMPONENT}): prop "{@for}" {@args.message}{.notEqual? @assert.value @NULL} (value: {@assert.value}){.end} -->{.newline}{#
+}{.end}{#
+
+## assert-required: assert that a prop exists
+   - @args.for: the name of the prop being asserted
+   - @: the prop value being asserted
+}{.macro assert-required}{#
+  }{.ctx @assert for=@args.for value=@}{#
+  }{.equal? @assert.value @NULL}{#
+    }{@assert|apply:assert-prop: :level=error: :message=is required:}{#
+  }{.end}{#
+}{.end}{#
+
+## assert-uint: assert that a prop is a positive integer
+   - @args.for: the name of the prop being asserted
+   - @: the prop value being asserted
+}{.macro assert-uint}{#
+  }{.ctx @assert for=@args.for value=@}{#
+  ## Round the input to coerce non-numeric values to NaN
+  }{.var @val @assert.value|round}{#
+  }{.if @val}{#
+    }{.lessThan? @val 0}{#
+      }{@assert|apply:assert-prop: :level=error: :message=requires a positive integer, but received a negative value:}{#
+    }{.end}{#
+  }{.or}{#
+    }{@assert|apply:assert-prop: :level=error: :message=requires a positive integer, but received a non-integer value:}{#
+  }{.end}{#
+}{.end}{#
+
+## assert-boolean: assert that a prop is a boolean
+   - @args.for: the name of the prop being asserted
+   - @: the prop value being asserted
+}{.macro assert-boolean}{#
+  }{.ctx @assert for=@args.for value=@}{#
+  }{.notEqual? @assert.value @NULL}{#
+    }{.notEqual? @assert.value @TRUE}{.notEqual? @assert.value @FALSE}{#
+      }{@assert|apply:assert-prop: :level=error: :message=requires a boolean:}{#
+    }{.end}{.end}{#
+  }{.end}{#
+}{.end}{#
+
+## assert-priority: assert the priority prop is valid
+}{.macro assert-priority}{#
+  }{.equal? @priority @PRIORITY_HIGH}{.or equal? @priority @PRIORITY_LOW}{.or equal? @priority @NULL}{.or}{#
+    }{.ctx @assert value=@priority}{#
+    }{@assert|apply:assert-prop: :for=priority: :level=error: :message=is invalid, accepted values are "high", "low", or null :}{#
+  }{.end}{#
+}{.end}{#
+
+## assert-fetchpriority: assert the fetchpriority prop is valid
+}{.macro assert-fetchpriority}{#
+  }{.equal? @fetchpriority @PRIORITY_HIGH}{.or equal? @fetchpriority @PRIORITY_LOW}{.or equal? @fetchpriority @NULL}{.or}{#
+    }{.ctx @assert value=@fetchpriority}{#
+    }{@assert|apply:assert-prop: :for=fetchpriority: :level=error: :message=is invalid, accepted values are "high", "low", or null :}{#
+  }{.end}{#
+}{.end}{#
+
+## assert-loading: assert the loading prop is valid
+}{.macro assert-loading}{#
+  }{.equal? @loading @LOADING_EAGER}{.or equal? @loading @LOADING_LAZY}{.or equal? @loading @NULL}{.or}{#
+    }{.ctx @assert value=@loading}{#
+    }{@assert|apply:assert-prop: :for=loading: :level=error: :message=is invalid, accepted values are "lazy", "eager", or null :}{#
+  }{.end}{#
+}{.end}{#
+
+## assert-loader: assert the loader prop is valid
+}{.macro assert-loader}{#
+  }{.equal? @loader @LOADER_SQS}{.or equal? @loader @LOADER_RAW}{.or equal? @loader @LOADER_VIMEO}{.or equal? @loader @LOADER_YOUTUBE}{.or}{#
+    }{.ctx @assert value=@loader}{#
+    }{@assert|apply:assert-prop: :for=loader: :level=error: :message=received unknown loader type:}{#
+  }{.end}{#
+}{.end}{#
+
+## assert-null-format: assert the format is null (for sqs and raw)
+}{.macro assert-null-format}{#
+  }{.notEqual? @format @NULL}{#
+    }{.ctx @assert value=@NULL}{#
+    }{@assert|apply:assert-prop: :for=format: :level=error: :message=can only be used when loader="vimeo" or "youtube":}
+  {.end}{#
+}{.end}{#
+
+## assert-valid-format: assert the format is null (for vimeo and youtube)
+}{.macro assert-valid-format}{#
+  }{.eval @formatNotJpg = @format != @FORMAT_JPG}{#
+  }{.eval @formatNotWebp = @format != @FORMAT_WEBP}{#
+  }{.if @formatNotJpg && @formatNotWebp}{#
+    }{.ctx @assert value=@NULL}{#
+    }{@assert|apply:assert-prop: :for=format: :level=error: :message=must only have values format="jpg" or "webp":}{#
+  }{.end}{#
+}{.end}{#
+
+## assert-format: assert the format is valid for loader
+}{.macro assert-format}{#
+  }{.eval @allowsFormat = @loader == @LOADER_YOUTUBE || @loader == @LOADER_VIMEO}{#
+  }{.if @allowsFormat}{#
+    }{@|apply assert-valid-format}{#
+  }{.or}{#
+    }{@|apply assert-null-format}{#
+  }{.end}{#
+}{.end}{#
+
+## assert-video-id: assert video-id is present for youtube loader
+}{.macro assert-video-id}{#
+  }{.equal? @loader @LOADER_YOUTUBE}{#
+    }{@videoId|apply assert-required for=videoId}{#
+  }{.end}{#
+}{.end}{#
+
+## assert-src: assert src is present for non-youtube loader
+}{.macro assert-src}{#
+  }{.notEqual? @loader @LOADER_YOUTUBE}{#
+    }{@src|apply assert-required for=src}{#
+  }{.end}{#
+}{.end}{#
+
+## assert-srcset: assert the srcset prop is valid
+}{.macro assert-srcset}{#
+  }{.notEqual? @srcset @NULL}{# .and #}{.notEqual? @loader @LOADER_RAW}{#
+    }{.ctx @assert value=@NULL}{#
+    }{@assert|apply:assert-prop: :for=srcset: :level=error: :message=can only be used when loader="raw":}{#
+  }{.end}{.end}{#
+}{.end}{#
+
+## assert-sizes: assert the sizes prop is specified when loader="sqs"
+}{.macro assert-sizes}{#
+  }{.equal? @loader @LOADER_SQS}{# .and #}{.equal? @sizes @NULL}{#
+    }{.ctx @assert value=@NULL}{#
+    }{@assert|apply:assert-prop: :for=sizes: :level=error: :message=is required when loader="sqs":}{#
+  }{.end}{.end}{#
+}{.end}{#
+
+## debug-info: renders useful debug information when debug flag is set in the context
+}{.macro debug-info}{#
+  }<!--{.newline}{#
+
+  }DEBUG:{@COMPONENT}: rendering debug info{.newline}{.newline}{#
+
+  }DEBUG:{@COMPONENT}: provided context "@"{.newline}{#
+  }{@this.context|json-pretty}{.newline}{.newline}{#
+
+  }DEBUG:{@COMPONENT}: provided arguments "@args"{.newline}{#
+  }{@this.args|json-pretty}{.newline}{.newline}{#
+
+  }DEBUG:{@COMPONENT}: default props{.newline}{#
+  }{@this.defaults|json-pretty}{.newline}{.newline}{#
+
+  }DEBUG:{@COMPONENT}: resolved props{.newline}{#
+  }{@props|json-pretty}{.newline}{#
+
+  }-->{.newline}{#
+#}{.end}{#
+
+## render: the template's "main" function
+}{.macro render}{#
+  ## default props
+  }{.ctx @defaults loader=@LOADER_SQS}{#
+
+  ## component state — usable in any local macros
+  }{.ctx @this context=@ args=@args defaults=@defaults}{#
+
+  ## required props
+  }{.var @width @|apply use-prop name=width}{#
+  }{.var @height @|apply use-prop name=height}{#
+  }{.var @alt @|apply use-prop name=alt}{#
+  }{.var @format @|apply use-prop name=format}{#
+  }{.var @videoId @|apply use-prop name=videoId}{#
+
+  ## optional props
+  }{.var @src @|apply use-prop name=src}{#
+  }{.var @class @|apply use-prop name=class}{#
+  }{.var @style @|apply use-prop name=style}{#
+  }{.var @priority @|apply use-prop name=priority}{#
+  }{.var @sizes @|apply use-prop name=sizes}{#
+  }{.var @loader @|apply use-prop name=loader}{#
+  }{.var @srcset @|apply use-prop name=srcset}{#
+  }{.var @onLoadingComplete @|apply use-prop name=onLoadingComplete}{#
+  }{.var @passthrough @|apply use-prop name=passthrough}{#
+  }{.var @loading @|apply use-prop name=loading}{#
+  }{.var @fetchpriority @|apply use-prop name=fetchpriority}{#
+
+
+  ## prop validation
+  }{.debug?}{#
+    }{@|apply assert-src}{#
+    }{@width|apply assert-required for=width}{#
+    }{@width|apply assert-uint for=width}{#
+    }{@height|apply assert-required for=height}{#
+    }{@height|apply assert-uint for=height}{#
+    }{@|apply assert-priority}{#
+    }{@|apply assert-fetchpriority}{#
+    }{@|apply assert-loading}{#
+    }{@|apply assert-loader}{#
+    }{@|apply assert-srcset}{#
+    }{@|apply assert-sizes}{#
+    }{@|apply assert-format}{#
+    }{@|apply assert-video-id}{#
+  }{.end}{#
+
+  ## final prop resolution
+  }{.notEqual? @width @NULL}{.var @width @width|round}{.end}{#
+  }{.notEqual? @height @NULL}{.var @height @height|round}{.end}{#
+  }{.var @srcset @loader|apply use-loader}{#
+  }{.equal? @priority @PRIORITY_HIGH}{.var @priorityloading @LOADING_EAGER}{.or}{.var @priorityloading @LOADING_LAZY}{.end}{#
+  }{.equal? @loading @NULL}{.var @loading @priorityloading}{.end}{#
+  }{.equal? @fetchpriority @NULL}{.var @fetchpriority @priority}{.end}{#
+  }{.ctx @props src=@src width=@width height=@height alt=@alt class=@class style=@style priority=@priority fetchpriority=@fetchpriority loading=@loading sizes=@sizes loader=@loader srcset=@srcset onLoadingComplete=@onLoadingComplete passthrough=@passthrough}{#
+
+  }{.debug?}{@|apply debug-info}{.end}{#
+
+  }<img{#
+    ## render passthrough props first so they override any other attributes
+    ## arrays can only be used via context in JSON-T, so we use a string here instead
+    }{.notEqual? @passthrough @NULL} {@passthrough}{.end}{#
+
+    ## user attributes for required props
+    }{.notEqual? @src @NULL} src="{@src|htmlattr}"{.or}{@|apply use-youtube-src}{.end}{#
+    }{.notEqual? @width @NULL} width="{@width|htmlattr}"{.end}{#
+    }{.notEqual? @height @NULL} height="{@height|htmlattr}"{.end}{#
+    } alt="{.notEqual? @alt @NULL}{@alt|safe|htmlattr}{.end}"{#
+
+    ## user attributes for optional props
+    }{.notEqual? @sizes @NULL} sizes="{@sizes|htmlattr}"{.end}{#
+    }{.notEqual? @class @NULL} class="{@class|htmlattr}"{.end}{#
+    } style="display:block{.notEqual? @style @NULL};{@style|htmlattr}{.end}"{#
+    }{.notEqual? @onLoadingComplete @NULL} onload="{@onLoadingComplete|htmlattr}"{.end}{#
+
+    ## resolved attributes from props
+    }{.notEqual? @srcset @NULL} srcset="{@srcset|htmlattr}"{.end}{#
+    }{.notEqual? @fetchpriority @NULL} fetchpriority="{@fetchpriority|htmlattr}"{.end}{#
+    } loading="{@loading|htmlattr}"{#
+    } decoding="async"{#
+    } data-loader="{@loader|htmlattr}"{#
+    } data-image-component="0.17.0">{#
+}{.end}{#
+
+## Initiate the render
+}{@|apply render}

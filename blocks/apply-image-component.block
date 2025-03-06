@@ -1,0 +1,30 @@
+{#
+
+Adds default values for using the image component in NBF
+
+To add additional attributes to the default passthrough attributes, use `@passthroughProps`.
+Use `@passthrough` to override the defualt passthrough attributes completely.
+
+Consumer may also want to define: `@style`, `@sizes`, `@class`, `@priority`, `@onLoadingComplete`.
+
+See https://github.com/sqsp/web-performance-tools/blob/master/packages/image/docs/API.md#image
+for underlying details about `sqs-image.block`.
+
+}
+
+{.macro applyImageComponent}
+  {.if @args.class}{.eval @class = @args.class}{.end}
+  {.if @args.elementTiming}{.eval @elementTiming = @args.elementTiming}{.end}
+  {.if @args.sizes}{.eval @sizes = @args.sizes}{.end}
+  {.if @args.preset}{.eval @preset = @args.preset}{.end}
+
+  {.if @src}{.or}{.var @src assetUrl}{.end}
+  {.if @passthrough}{.or}
+    {.if @passthroughProps}{.eval @passthrough = @passthrough + ' ' + @passthroughProps}{.end}
+  {.end}
+
+  {.ctx @image src=@src width=@width height=@height style=@style sizes=@sizes passthrough=@passthrough priority=@priority class=@class loader=@loader srcset=@srcset onLoadingComplete=@onLoadingComplete}
+  {@image|apply sqs-image.block}
+
+{.end}
+{@|apply applyImageComponent}
