@@ -19,4 +19,9 @@
       <div class="page-description" data-content-field="description" data-default-description="{localizedStrings.defaultPageDescription}">{description}</div>
     </div>
   </div>
+  <style>
+    .homepage.show-homepage-banner.banner-text-alignment-center .page-text-wrapper {
+      margin-right: 0 !important;
+    }
+  </style>
 {.end}
