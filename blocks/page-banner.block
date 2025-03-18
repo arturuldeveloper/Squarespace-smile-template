@@ -21,7 +21,25 @@
   </div>
   <style>
     .homepage.show-homepage-banner.banner-text-alignment-center .page-text-wrapper {
-      margin-right: 0 !important;
+      margin-right: 1rem !important;
+      border-radius: 1rem;
+      padding: 1vw;
+      background: rgb(182, 223, 255);
+      margin-bottom: 5vw;
+      max-width: 500px;
+    }
+    .homepage.show-homepage-banner:not(.collection-type-index):not(.collection-type-project).full-bleed-banner .page-banner-wrapper {
+      min-height: 90vh !important;
+      height: 90vh !important;
+      max-height: 90vh; !important;
+    }
+    .homepage.show-homepage-banner:not(.collection-type-index):not(.collection-type-project).full-bleed-banner .page-banner-wrapper .page-banner-image {
+      height: 100% !important;
+      top: 0 !important;
+      object-fit: cover;
+    }
+    .homepage.show-homepage-banner.banner-text-alignment-center .page-text-wrapper .page-title p {
+      display: none !important;
     }
   </style>
 {.end}
