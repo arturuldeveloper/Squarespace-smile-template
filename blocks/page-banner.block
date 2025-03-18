@@ -14,19 +14,25 @@
 
     </div>
 
-    <div class="page-text-wrapper hide clearfix" data-edit-main-image="Background" data-collection-id="{collection.id}">
+    <div class="custom-page-text-wrapper page-text-wrapper hide clearfix" data-edit-main-image="Background" data-collection-id="{collection.id}">
       <h1 class="page-title"><span data-content-field="title">{title}</span></h1>
       <div class="page-description" data-content-field="description" data-default-description="{localizedStrings.defaultPageDescription}">{description}</div>
     </div>
   </div>
   <style>
-    .homepage.show-homepage-banner.banner-text-alignment-center .page-text-wrapper {
+    .homepage.show-homepage-banner.banner-text-alignment-center .custom-page-text-wrapper {
       margin-right: 1rem !important;
       border-radius: 1rem;
-      padding: 1vw;
+      padding: 2vw 1vw;
       background: rgb(182, 223, 255);
-      margin-bottom: 5vw;
-      max-width: 500px;
+      margin-bottom: 10vw;
+      max-width: 40vw;
+    }
+    .homepage.show-homepage-banner.banner-text-alignment-center .custom-page-text-wrapper .page-title {
+      line-height: 100%;
+    }
+    .homepage.show-homepage-banner.banner-text-alignment-center .custom-page-text-wrapper .page-title span {
+      line-height: 100%;
     }
     .homepage.show-homepage-banner:not(.collection-type-index):not(.collection-type-project).full-bleed-banner .page-banner-wrapper {
       min-height: 90vh !important;
