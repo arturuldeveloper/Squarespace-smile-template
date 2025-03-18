@@ -27,6 +27,9 @@
       background: rgb(182, 223, 255);
       margin-bottom: 10vw;
       max-width: 40vw;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
     .homepage.show-homepage-banner.banner-text-alignment-center .custom-page-text-wrapper .page-title {
       line-height: 100%;
@@ -46,6 +49,23 @@
     }
     .homepage.show-homepage-banner.banner-text-alignment-center .page-text-wrapper .page-title p {
       display: none !important;
+    }
+    @media (max-width: 768px) {
+      .homepage.show-homepage-banner.banner-text-alignment-center .custom-page-text-wrapper {
+        border-radius: 1rem;
+        padding: 2vw 1vw;
+        background: rgb(182, 223, 255);
+        margin: auto 1rem 1rem;
+        max-width: 100%;
+      }
+      .homepage.show-homepage-banner.banner-text-alignment-center .custom-page-text-wrapper .page-title {
+        line-height: 36px;
+      }
+      .homepage.show-homepage-banner.banner-text-alignment-center .custom-page-text-wrapper .page-title span {
+        line-height: 100%;
+        font-size: 36px;
+        line-height: 100%;
+      }
     }
   </style>
 {.end}
