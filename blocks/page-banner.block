@@ -17,9 +17,33 @@
     <div class="custom-page-text-wrapper page-text-wrapper hide clearfix" data-edit-main-image="Background" data-collection-id="{collection.id}">
       <h1 class="page-title"><span data-content-field="title">{title}</span></h1>
       <div class="page-description" data-content-field="description" data-default-description="{localizedStrings.defaultPageDescription}">{description}</div>
+      <div class="book-appointment-btn-container>
+        <a href="/contact-us" class="book-appointment-btn">
+          Book an appointment
+        </a>
+      </div>
     </div>
   </div>
   <style>
+    .homepage.show-homepage-banner.banner-text-alignment-center .custom-page-text-wrapper .book-appointment-btn-container {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .homepage.show-homepage-banner.banner-text-alignment-center .custom-page-text-wrapper .book-appointment-btn {
+      padding: 12px 24px;
+      border-radius: 12px;
+      border: 1px solid;
+      margin-top: 1rem;
+      color: black;
+      font-size: 18px;
+      font-weight: 600;
+    }
+    .homepage.show-homepage-banner.banner-text-alignment-center .custom-page-text-wrapper .book-appointment-btn:hover {
+      color: white;
+      background: black;
+    }
     .homepage.show-homepage-banner.banner-text-alignment-center .custom-page-text-wrapper {
       margin-right: 1rem !important;
       border-radius: 1rem;
