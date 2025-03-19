@@ -41,8 +41,9 @@
       font-weight: 600;
     }
     .homepage.show-homepage-banner.banner-text-alignment-center .custom-page-text-wrapper .book-appointment-btn:hover {
-      color: white;
+      color: rgb(182, 223, 255);
       background: black;
+      text-decoration: none;
     }
     .homepage.show-homepage-banner.banner-text-alignment-center .custom-page-text-wrapper {
       margin-right: 1rem !important;
