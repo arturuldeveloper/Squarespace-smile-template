@@ -25,6 +25,9 @@
     </div>
   </div>
   <style>
+    .custom-page-text-wrapper .book-appointment-btn-container {
+      display: none;
+    }
     .homepage.show-homepage-banner.banner-text-alignment-center .custom-page-text-wrapper .book-appointment-btn-container {
       width: 100%;
       display: flex;
