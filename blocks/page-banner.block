@@ -6,10 +6,8 @@
       {.background-source-video?}
         {@|apply sqs-video-background.block}
       {.or}
-        {.if @pageThumb}
-        {.end}
-      {.end}
       <img src={@pageThumb.assetUrl} alt="Page Banner">
+      {.end}
 
     <div class="custom-page-text-wrapper page-text-wrapper hide clearfix" data-edit-main-image="Background" data-collection-id="{collection.id}">
       <h1 class="page-title"><span data-content-field="title">{title}</span></h1>
