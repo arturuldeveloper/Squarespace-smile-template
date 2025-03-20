@@ -2,6 +2,7 @@
 <p>Main Image: {.if collection.mainImage}Exists{.end}</p>
 <p>Featured Image: {.if collection.featuredImage}Exists{.end}</p>
 <p>Image: {.if collection.image}Exists{.end}</p>
+<p>{@pageThumb|image-meta}</p>
 
 
 {.section collection}
@@ -14,9 +15,6 @@
       {.or}
         {.if @pageThumb}
           <img class="page-banner-image js-page-banner-image loading" {@pageThumb|image-meta} data-load="false" />
-        {.end}
-        {.if @firstImg}
-          <img class="page-banner-image js-page-banner-image loading" {@firstImg|image-meta} data-load="false" />
         {.end}
       {.end}
 
