@@ -10,9 +10,9 @@
         {@|apply sqs-video-background.block}
       {.or}
         {.if @pageThumb}
-          <img class="page-banner-image js-page-banner-image loading" {@pageThumb|image-meta} data-load="false" />
         {.end}
       {.end}
+      <img src={@pageThumb.assetUrl} alt="Page Banner">
     </div>
 
     <div class="custom-page-text-wrapper page-text-wrapper hide clearfix" data-edit-main-image="Background" data-collection-id="{collection.id}">
