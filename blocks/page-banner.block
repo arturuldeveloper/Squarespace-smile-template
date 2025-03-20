@@ -1,4 +1,5 @@
 {.var @pageThumb collection.mainImage}
+<p>{@pageThumb|image}</p>
 
 {.section collection}
   <div data-controller="BannerController" class="page-banner-wrapper {.background-source-video?}page-banner-has-video{.or}{.if @pageThumb}page-banner-has-image{.end}{.end}"{.background-source-video?}{.or}{.if @pageThumb} data-suggested-bg-color-thumbnail="#{@pageThumb.colorData.suggestedBgColor}"{.end}{.end}>
@@ -9,7 +10,7 @@
         {@|apply sqs-video-background.block}
       {.or}
         {.if @pageThumb}
-          <img class="page-banner-image js-page-banner-image loading" {@pageThumb|image-meta} data-load="false" src={@pageThumb|image} />
+          <img class="page-banner-image js-page-banner-image loading" {@pageThumb|image-meta} data-load="false" />
         {.end}
       {.end}
 
