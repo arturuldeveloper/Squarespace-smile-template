@@ -1,8 +1,5 @@
 {.var @pageThumb collection.mainImage}
-<p>Main Image: {.if collection.mainImage}Exists{.end}</p>
-<p>Featured Image: {.if collection.featuredImage}Exists{.end}</p>
-<p>Image: {.if collection.image}Exists{.end}</p>
-<p>{@pageThumb|image-meta}</p>
+<p>{@pageThumb|image-src}</p>
 
 
 {.section collection}
@@ -14,7 +11,7 @@
         {@|apply sqs-video-background.block}
       {.or}
         {.if @pageThumb}
-          <img class="page-banner-image js-page-banner-image loading" {@pageThumb|image-meta} data-load="false" src="{@pageThumb|image-src}" />
+          <img class="page-banner-image js-page-banner-image loading" {@pageThumb|image-meta} data-load="false" src={@pageThumb|image-src} />
         {.end}
       {.end}
 
