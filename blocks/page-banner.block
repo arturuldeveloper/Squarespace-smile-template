@@ -1,6 +1,8 @@
 {.var @pageThumb collection.mainImage}
-{.var @firstImg items.0}
-<p>Collection ID: {collection.id}</p>
+<p>Main Image: {.if collection.mainImage}Exists{.else}Not Set{.end}</p>
+<p>Featured Image: {.if collection.featuredImage}Exists{.else}Not Set{.end}</p>
+<p>Image: {.if collection.image}Exists{.else}Not Set{.end}</p>
+
 
 {.section collection}
   <div data-controller="BannerController" class="page-banner-wrapper {.background-source-video?}page-banner-has-video{.or}{.if @pageThumb}page-banner-has-image{.end}{.end}"{.background-source-video?}{.or}{.if @pageThumb} data-suggested-bg-color-thumbnail="#{@pageThumb.colorData.suggestedBgColor}"{.end}{.end}>
