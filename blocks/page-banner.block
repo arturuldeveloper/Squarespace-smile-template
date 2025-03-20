@@ -14,7 +14,7 @@
         {@|apply sqs-video-background.block}
       {.or}
         {.if @pageThumb}
-          <img class="page-banner-image js-page-banner-image loading" {@pageThumb|image-meta} data-load="false" />
+          <img class="page-banner-image js-page-banner-image loading" {@pageThumb|image-meta} data-load="false" src="{@pageThumb|image-src}" />
         {.end}
       {.end}
 
