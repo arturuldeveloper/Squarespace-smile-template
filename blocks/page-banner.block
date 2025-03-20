@@ -1,4 +1,7 @@
-{.var @pageThumb collection.mainImage | collection.featuredImage}
+{.var @pageThumb collection.mainImage}
+{.if !@pageThumb}
+  {.var @pageThumb collection.featuredImage}
+{.end}
 {.section collection}
   <div data-controller="BannerController" class="page-banner-wrapper {.background-source-video?}page-banner-has-video{.or}{.if @pageThumb}page-banner-has-image{.end}{.end}"{.background-source-video?}{.or}{.if @pageThumb} data-suggested-bg-color-thumbnail="#{@pageThumb.colorData.suggestedBgColor}"{.end}{.end}>
 
