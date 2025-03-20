@@ -1,7 +1,13 @@
-{.var @pageThumb collection.mainImage}
-{.if !@pageThumb}
+{.if collection.mainImage}
+  {.var @pageThumb collection.mainImage}
+{.elseif collection.featuredImage}
   {.var @pageThumb collection.featuredImage}
+{.elseif collection.image}
+  {.var @pageThumb collection.image}
+{.else}
+  {.var @pageThumb site.logo} <!-- Fallback to site logo if nothing is found -->
 {.end}
+
 {.section collection}
   <div data-controller="BannerController" class="page-banner-wrapper {.background-source-video?}page-banner-has-video{.or}{.if @pageThumb}page-banner-has-image{.end}{.end}"{.background-source-video?}{.or}{.if @pageThumb} data-suggested-bg-color-thumbnail="#{@pageThumb.colorData.suggestedBgColor}"{.end}{.end}>
 
