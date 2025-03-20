@@ -1,7 +1,7 @@
 {.var @pageThumb collection.mainImage}
-<p>Main Image: {.if collection.mainImage}Exists{.else}Not Set{.end}</p>
-<p>Featured Image: {.if collection.featuredImage}Exists{.else}Not Set{.end}</p>
-<p>Image: {.if collection.image}Exists{.else}Not Set{.end}</p>
+<p>Main Image: {.if collection.mainImage}Exists{.end}</p>
+<p>Featured Image: {.if collection.featuredImage}Exists{.end}</p>
+<p>Image: {.if collection.image}Exists{.end}</p>
 
 
 {.section collection}
