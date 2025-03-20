@@ -1,6 +1,6 @@
 {.var @pageThumb collection.mainImage}
-<p>{@pageThumb|image}</p>
-<p>{@pageThumb|image-meta}</p>
+
+<div id="pageBanner" style="display:none !important;" {@pageThumb|image-meta}></div>
 
 {.section collection}
   <div data-controller="BannerController" class="page-banner-wrapper {.background-source-video?}page-banner-has-video{.or}{.if @pageThumb}page-banner-has-image{.end}{.end}"{.background-source-video?}{.or}{.if @pageThumb} data-suggested-bg-color-thumbnail="#{@pageThumb.colorData.suggestedBgColor}"{.end}{.end}>
@@ -99,4 +99,24 @@
       }
     }
   </style>
+  <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var bannerDiv = document.getElementById("pageBanner");
+    if (bannerDiv) {
+      var imageUrl = bannerDiv.getAttribute("data-image") || bannerDiv.getAttribute("data-src");
+
+      if (imageUrl) {
+        var imgElement = document.createElement("img");
+        imgElement.src = imageUrl;
+        imgElement.className = "page-banner-image js-page-banner-image loading";
+        imgElement.alt = "Page Banner Image";
+
+        // Replace the div with the actual image
+        bannerDiv.innerHTML = "";
+        bannerDiv.appendChild(imgElement);
+      }
+    }
+  });
+</script>
+
 {.end}
