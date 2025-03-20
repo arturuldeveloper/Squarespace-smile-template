@@ -1,4 +1,5 @@
-{.var @pageThumb collection.featuredImage}
+{.var @pageThumb collection.mainImage}
+{.var @firstImg items.0}
 <p>Collection ID: {collection.id}</p>
 
 {.section collection}
@@ -11,6 +12,9 @@
       {.or}
         {.if @pageThumb}
           <img class="page-banner-image js-page-banner-image loading" {@pageThumb|image-meta} data-load="false" />
+        {.end}
+        {.if @firstImg}
+          <img class="page-banner-image js-page-banner-image loading" {@firstImg|image-meta} data-load="false" />
         {.end}
       {.end}
 
