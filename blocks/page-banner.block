@@ -1,5 +1,5 @@
 {.var @pageThumb collection.mainImage}
-<p>{@pageThumb|json}</p>
+<p style="display: none !important;">{@pageThumb|json}</p>
 
 {.section collection}
   <div data-controller="BannerController" class="page-banner-wrapper {.background-source-video?}page-banner-has-video{.or}{.if @pageThumb}page-banner-has-image{.end}{.end}"{.background-source-video?}{.or}{.if @pageThumb} data-suggested-bg-color-thumbnail="#{@pageThumb.colorData.suggestedBgColor}"{.end}{.end}>
@@ -13,7 +13,6 @@
           <img class="page-banner-image js-page-banner-image loading" {@pageThumb|image-meta} data-load="false" />
         {.end}
       {.end}
-<img src={@pageThumb.assetUrl} alt="Page Banner">
     </div>
 
     <div class="custom-page-text-wrapper page-text-wrapper hide clearfix" data-edit-main-image="Background" data-collection-id="{collection.id}">
