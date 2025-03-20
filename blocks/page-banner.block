@@ -1,5 +1,9 @@
 {.var @pageThumb collection.mainImage}
 <p>{@pageThumb|image-src}</p>
+<p>{@pageThumb.originalUrl}</p>
+<p>{@pageThumb}</p>
+<p>{@pageThumb.imageUrl}</p>
+
 
 
 {.section collection}
