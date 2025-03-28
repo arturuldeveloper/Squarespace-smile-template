@@ -1,6 +1,6 @@
 {.var @pageThumb collection.mainImage}
 {.section collection}
-  <div data-controller="BannerController" class="page-banner-wrapper {.background-source-video?}page-banner-has-video{.or}{.if @pageThumb}page-banner-has-image{.end}{.end}"{.background-source-video?}{.or}{.if @pageThumb} data-suggested-bg-color-thumbnail="#{@pageThumb.colorData.suggestedBgColor}"{.end}{.end}>
+  <div data-controller="BannerController" class="page-banner-wrapper {.background-source-video?}page-banner-has-video{.or}{.if @pageThumb}page-banner-has-image{.end}{.end}"{.background-source-video?}{.or}{.if @pageThumb} data-suggested-bg-color-thumbnail="#{@pageThumb.colorData.suggestedBgColor}"{.end}{.end}{.collection.id == website.homeCollectionId}is-homepage{.else}is-innerpage{.end}>
 
     <div{.background-source-video?} data-controller="VideoBackground"{.end} class="page-banner-image-container collection-thumbnail-image-container hide-collection-image">
 
