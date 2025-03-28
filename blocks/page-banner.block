@@ -20,7 +20,7 @@
   <style>
     #footer.site-footer {
       background: rgb(181, 221, 254);
-      color: rgb(16, 37, 109);
+      color: rgb(16, 25, 34);
     }
   </style>
 {.end}
