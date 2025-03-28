@@ -1,20 +1,22 @@
 {.var @pageThumb collection.mainImage}
-<p style="display: none !important;">{@pageThumb|json}</p>
-
 {.section collection}
   <div data-controller="BannerController" class="page-banner-wrapper {.background-source-video?}page-banner-has-video{.or}{.if @pageThumb}page-banner-has-image{.end}{.end}"{.background-source-video?}{.or}{.if @pageThumb} data-suggested-bg-color-thumbnail="#{@pageThumb.colorData.suggestedBgColor}"{.end}{.end}>
+
+    <div{.background-source-video?} data-controller="VideoBackground"{.end} class="page-banner-image-container collection-thumbnail-image-container hide-collection-image">
+
       {.background-source-video?}
         {@|apply sqs-video-background.block}
       {.or}
-        <img src={@pageThumb.assetUrl} alt="Page Banner">
+        {.if @pageThumb}
+          <img class="page-banner-image js-page-banner-image loading" {@pageThumb|image-meta} data-load="false" />
+        {.end}
       {.end}
 
-    <div class="custom-page-text-wrapper page-text-wrapper hide clearfix" data-edit-main-image="Background" data-collection-id="{collection.id}">
+    </div>
+
+    <div class="page-text-wrapper hide clearfix" data-edit-main-image="Background" data-collection-id="{collection.id}">
       <h1 class="page-title"><span data-content-field="title">{title}</span></h1>
       <div class="page-description" data-content-field="description" data-default-description="{localizedStrings.defaultPageDescription}">{description}</div>
     </div>
   </div>
-  <style>
-
-  </style>
 {.end}
