@@ -17,4 +17,10 @@
       <div class="page-description" data-content-field="description" data-default-description="{localizedStrings.defaultPageDescription}">{description}</div>
     </div>
   </div>
+  <style>
+    #footer.site-footer {
+      background: rgb(181, 221, 254);
+      color: rgb(16, 37, 109);
+    }
+  </style>
 {.end}
