@@ -24,12 +24,24 @@
     {.end}
   </div>
   <label for="mobileNavToggle" class="mobile-nav-toggle-label" onclick>
-    <svg class="Icon Icon--hamburger" viewBox="0 0 24 18">
-      <use xlink:href="/assets/ui-icons.svg#hamburger-icon--even" class="use--even"></use>
-      <use xlink:href="/assets/ui-icons.svg#hamburger-icon--odd" class="use--odd"></use>
+    <svg class="Icon Icon--hamburger" viewBox="0 0 12 12">
+      <g>
+        <rect fill="#1D1D1B" height="1" width="11" x="0.5" y="5.5"/>
+        <rect fill="#1D1D1B" height="1" width="11" x="0.5" y="2.5"/>
+        <rect fill="#1D1D1B" height="1" width="11" x="0.5" y="8.5"/>
+      </g>
     </svg>
-    <svg class="Icon Icon--close" viewBox="0 0 20 20">
-      <use xlink:href="/assets/ui-icons.svg#close-icon"></use>
+    <svg class="Icon Icon--close" viewBox="0 -0.5 21 21">
+      <title>close [#1511]</title>
+      <desc>Created with Sketch.</desc>
+      <defs></defs>
+      <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Dribbble-Light-Preview" transform="translate(-419.000000, -240.000000)" fill="#000000">
+          <g id="icons" transform="translate(56.000000, 160.000000)">
+            <polygon id="close-[#1511]" points="375.0183 90 384 98.554 382.48065 100 373.5 91.446 364.5183 100 363 98.554 371.98065 90 363 81.446 364.5183 80 373.5 88.554 382.48065 80 384 81.446">  </polygon>
+          </g>
+        </g>
+      </g>
     </svg>
   </label>
 </div>
