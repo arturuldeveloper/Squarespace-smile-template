@@ -1,6 +1,7 @@
 
-<header id="header" class="site-header" role="banner" data-nc-base="header" data-nc-group="header" data-controller="AncillaryLayout">
+<header id="header" class="custom-site-header site-header" role="banner" data-nc-base="header" data-nc-group="header" data-controller="AncillaryLayout">
   <div data-nc-container="left">
+    <div>this is the test</div>
     <div class="logo-wrapper" data-content-field="site-title" data-nc-element="branding">
     {.section website}
       {.section logoImageUrl}
