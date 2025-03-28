@@ -22,5 +22,9 @@
       background: rgb(181, 221, 254);
       color: rgb(16, 25, 34);
     }
+    #footer.site-footer a {
+      background: rgb(181, 221, 254);
+      color: rgb(16, 25, 34);
+    }
   </style>
 {.end}
