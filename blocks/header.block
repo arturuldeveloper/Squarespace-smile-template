@@ -82,6 +82,8 @@
   .custom-header-link {
     border: 2px solid #41678b;
     padding: 0.5rem 1rem;
-    color: #41678b;
+    border-radius: 32px;
+    color: white;
+    background: #41678b;
   }
 </style>
