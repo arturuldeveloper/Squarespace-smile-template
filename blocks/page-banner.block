@@ -19,11 +19,12 @@
   </div>
   <style>
     #footer.site-footer {
-      background: rgb(181, 221, 254);
+      background: rgb(236, 246, 252);
+      /* background: rgb(181, 221, 254); */
       color: rgb(16, 25, 34);
     }
     #footer.site-footer a {
-      background: rgb(181, 221, 254);
+      background: rgb(236, 246, 252);
       color: rgb(16, 25, 34);
     }
   </style>
