@@ -67,6 +67,9 @@
 </header>
 
 <style>
+  #header.custom-site-header {
+    background: #f9f8f6;
+  }
   .custom-header-container {
     display: flex;
     justify-content: space-evenly;
