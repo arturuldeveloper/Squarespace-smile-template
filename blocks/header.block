@@ -14,7 +14,7 @@
         </svg>
         <span class="custom-header-phone">(212) 583- 7605</span>
       </div>
-      <a href="/contact-us" class="custom-header-link">BOOK AN APPOINTMENT</a>
+      <a href="/en/contact-us" class="custom-header-link">BOOK AN APPOINTMENT</a>
     </div>
 
     <div class="logo-wrapper" data-content-field="site-title" data-nc-element="branding">
