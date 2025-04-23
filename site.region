@@ -33,6 +33,11 @@
         {.end}
 
         <main id="page" class="site-page" role="main"{.equal? collection.typeName "project"} data-controller="ProjectController"{.end}>
+          <style>
+            #page.site-page {
+              margin-top: 0 !important;
+            }
+          </style>
 
           {.equal? collection.typeName "page"}{.or}
           {# <!-- when not a page, include collection specific header via open block field --> }
