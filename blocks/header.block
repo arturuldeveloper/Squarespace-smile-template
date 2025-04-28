@@ -14,7 +14,7 @@
         </svg>
         <span class="custom-header-phone">(212) 583- 7605</span>
       </div>
-      <a href="/en/contact-us" class="custom-header-link">BOOK AN APPOINTMENT</a>
+      <a href="/en/contact-us" class="custom-header-link">Book An Appointment</a>
     </div>
 
     <div class="logo-wrapper" data-content-field="site-title" data-nc-element="branding">
@@ -88,5 +88,14 @@
     border-radius: 32px;
     color: white;
     background: #41678b;
+  }
+  #mainNavWrapper {
+    width: 100%;
+  }
+  #mainNavWrapper .site-navigation {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    text-transform: none !important;
   }
 </style>
