@@ -2,7 +2,7 @@
 <header id="header" class="custom-site-header site-header" role="banner" data-nc-base="header" data-nc-group="header" data-controller="AncillaryLayout">
   <div data-nc-container="right"></div>
   <div data-nc-container="center"></div>
-  <div data-nc-container="left" style="display:flex;justify-content:space-around;">
+  <div data-nc-container="left" style="display:flex;justify-content:space-evenly;">
     <div class="custom-header-container">
 
       <a href="/en/contact-us" class="custom-header-link">Book An Appointment</a>
