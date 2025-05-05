@@ -94,15 +94,4 @@
           c0,0,0,0,0.001,0c3.72,0,7.188-1.581,10.305-4.698l2.537-2.537C54.033,45.163,54.383,42.833,53.364,40.908z"/>
         </svg>
         <span class="custom-header-phone">(212) 583- 7605</span>
-      </div>  }
-
-          {#  {.if userAccountsContext.showSignInLink}
-    <div class="Header-account" data-nc-element="account">
-      <button data-controller="UserAccountsController"><span class="unauth">{localizedStrings.signIn}</span><span class="auth">{localizedStrings.myAccount}</span></button>
-      <div class="Icon Icon--user-accounts" data-controller="UserAccountsController">
-        <a href="#">
-          {@|apply user-account-icon.block}
-        </a>
-      </div>
-    </div>
-    {.end}  }
+      </div>  
