@@ -42,7 +42,16 @@
     <div class="cart-wrapper" data-nc-element="cart">
       {@|apply cart.block}
     </div>
-
+    {.if userAccountsContext.showSignInLink}
+    <div class="Header-account" data-nc-element="account">
+      <button data-controller="UserAccountsController"><span class="unauth">{localizedStrings.signIn}</span><span class="auth">{localizedStrings.myAccount}</span></button>
+      <div class="Icon Icon--user-accounts" data-controller="UserAccountsController">
+        <a href="#">
+          {@|apply user-account-icon.block}
+        </a>
+      </div>
+    </div>
+    {.end}
   </div>
 </header>
 
@@ -91,14 +100,3 @@
         </svg>
         <span class="custom-header-phone">(212) 583- 7605</span>
       </div>  }
-
-          {#  {.if userAccountsContext.showSignInLink}
-    <div class="Header-account" data-nc-element="account">
-      <button data-controller="UserAccountsController"><span class="unauth">{localizedStrings.signIn}</span><span class="auth">{localizedStrings.myAccount}</span></button>
-      <div class="Icon Icon--user-accounts" data-controller="UserAccountsController">
-        <a href="#">
-          {@|apply user-account-icon.block}
-        </a>
-      </div>
-    </div>
-    {.end}  }
