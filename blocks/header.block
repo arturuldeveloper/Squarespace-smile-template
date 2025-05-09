@@ -49,6 +49,9 @@
 <style>
   #header.custom-site-header {
     background: #f9f8f6;
+    position: fixed;
+    width: 100vw;
+    margin-top: 0;
   }
   .custom-header-container {
     display: flex;
