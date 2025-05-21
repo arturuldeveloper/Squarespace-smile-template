@@ -4,10 +4,10 @@
   <div data-nc-container="center"></div>
   <div data-nc-container="left" style="display:flex;justify-content:space-evenly;">
     <div class="custom-header-container custom-header-container-en">
-      <a href="/en/contact-us" class="custom-header-link">Book An Appointment</a>
+      <a href="/contact-us" class="custom-header-link">Book An Appointment</a>
     </div>
     <div class="custom-header-container custom-header-container-jp">
-      <a href="/en/contact-us" class="custom-header-link">予約する</a>
+      <a href="/jp/contact-us" class="custom-header-link">予約する</a>
     </div>
 
     <div class="logo-wrapper" data-content-field="site-title" data-nc-element="branding">
