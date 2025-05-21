@@ -62,6 +62,7 @@
     justify-content: center;
   }
   .custom-header-lang-en {
+    cursor: pointer;
     color: #756e6c;
     font-weight: 400;
   }
@@ -70,6 +71,7 @@
     font-weight: 600;
   }
   .custom-header-lang-jp {
+    cursor: pointer;
     color: #756e6c;
     font-weight: 400;
   }
