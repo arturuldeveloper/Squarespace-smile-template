@@ -5,7 +5,7 @@
 <div class="mobile-bar-wrapper">
   <div class="mobile-bar-flex-child">
     <div class="custom-header-lang-selector custom-header-lang-selector-mobile">
-      <span class="custom-header-lang-en selected">English</span>
+      <span class="custom-header-lang-en selected">EN</span>
       <span> | </span>
       <span class="custom-header-lang-jp">日本語</span>
     </div>
