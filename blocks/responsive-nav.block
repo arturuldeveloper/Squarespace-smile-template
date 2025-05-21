@@ -3,7 +3,13 @@
 <input type="checkbox" name="mobile-nav-toggle" id="mobileNavToggle" class="mobile-nav-toggle-box hidden" data-controller="MobileNavController" />
 
 <div class="mobile-bar-wrapper">
-  <div class="mobile-bar-flex-child"></div>
+  <div class="mobile-bar-flex-child">
+    <div class="custom-header-lang-selector">
+      <span class="custom-header-lang-en selected">English</span>
+      <span> | </span>
+      <span class="custom-header-lang-jp">日本語</span>
+    </div>
+  </div>
   <div class="mobile-branding-wrapper">
     {.section website}
       {.section logoImageUrl}
@@ -64,3 +70,30 @@
   </div>
 </div>
 {.end}
+<style>
+  .custom-header-lang-selector {
+    order: 10;
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    justify-content: center;
+  }
+  .custom-header-lang-en {
+    cursor: pointer;
+    color: #756e6c;
+    font-weight: 400;
+  }
+  .custom-header-lang-en.selected {
+    color: #41678b;
+    font-weight: 600;
+  }
+  .custom-header-lang-jp {
+    cursor: pointer;
+    color: #756e6c;
+    font-weight: 400;
+  }
+  .custom-header-lang-jp.selected {
+    color: #41678b;
+    font-weight: 600;
+  }
+</style>
