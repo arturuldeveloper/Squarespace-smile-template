@@ -3,9 +3,11 @@
   <div data-nc-container="right"></div>
   <div data-nc-container="center"></div>
   <div data-nc-container="left" style="display:flex;justify-content:space-evenly;">
-    <div class="custom-header-container">
-
+    <div class="custom-header-container custom-header-container-en">
       <a href="/en/contact-us" class="custom-header-link">Book An Appointment</a>
+    </div>
+    <div class="custom-header-container custom-header-container-jp">
+      <a href="/en/contact-us" class="custom-header-link">予約する</a>
     </div>
 
     <div class="logo-wrapper" data-content-field="site-title" data-nc-element="branding">
@@ -39,6 +41,12 @@
       <squarespace:navigation navigationId="secondaryNav" template="navigation" />
     </div>
 
+    <div class="custom-header-lang-selector">
+      <span class="custom-header-lang-en selected">English</span>
+      <span> | </span>
+      <span class="custom-header-lang-jp">日本語</span>
+    </div>
+
     <div class="cart-wrapper" data-nc-element="cart">
       {@|apply cart.block}
     </div>
@@ -47,6 +55,28 @@
 </header>
 
 <style>
+  .custom-header-lang-selector {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    justify-content: center;
+  }
+  .custom-header-lang-en {
+    color: #756e6c;
+    font-weight: 400;
+  }
+  .custom-header-lang-en.selected {
+    color: #41678b;
+    font-weight: 600;
+  }
+  .custom-header-lang-jp {
+    color: #756e6c;
+    font-weight: 400;
+  }
+  .custom-header-lang-jp.selected {
+    color: #41678b;
+    font-weight: 600;
+  }
   #header.custom-site-header {
     background: #f9f8f6;
     position: fixed;
