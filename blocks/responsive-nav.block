@@ -4,7 +4,7 @@
 
 <div class="mobile-bar-wrapper">
   <div class="mobile-bar-flex-child">
-    <div class="custom-header-lang-selector">
+    <div class="custom-header-lang-selector custom-header-lang-selector-mobile">
       <span class="custom-header-lang-en selected">English</span>
       <span> | </span>
       <span class="custom-header-lang-jp">日本語</span>
@@ -71,6 +71,9 @@
 </div>
 {.end}
 <style>
+  .custom-header-lang-selector-mobile {
+    margin-left: -40px;
+  }
   .custom-header-lang-selector {
     order: 10;
     display: flex;
@@ -87,10 +90,11 @@
     color: #41678b;
     font-weight: 600;
   }
-  .custom-header-lang-jp {
+  .custom-header-lang-selector-mobile .custom-header-lang-jp {
     cursor: pointer;
     color: #756e6c;
     font-weight: 400;
+    white-space: nowrap;
   }
   .custom-header-lang-jp.selected {
     color: #41678b;
