@@ -104,6 +104,7 @@
     border-radius: 32px;
     color: white;
     background: #41678b;
+    display: none;
   }
   #mainNavWrapper {
     width: 100%;
